@@ -34,16 +34,14 @@ function MyArrayPrototype() {
         const returnArray = new MyArray();
 
         if (depth < 0 || typeof depth !== 'number' || Number.isNaN(depth)) {
-            Object.assign(returnArray, this);
+            this.forEach(item => returnArray.push(item));
             return returnArray;
         }
 
         this.forEach(item => {
             if ((MyArray.isMyArray(item) || Array.isArray(item)) && depth > 0) {
                 const flatArray = item.flat(depth - 1);
-                flatArray.forEach(flatItem => {
-                    returnArray.push(flatItem);
-                });
+                flatArray.forEach(flatItem => returnArray.push(flatItem));
             } else {
                 returnArray.push(item);
             }
@@ -61,17 +59,17 @@ const flatArray = new MyArray(
 );
 
 console.group('Correct arguments');
-console.log('flatArray.flat(0):')
+console.log('flatArray.flat(0):');
 console.log(flatArray.flat(0)); // returs same copy
 
-console.log('\nflatArray.flat() / flatArray.flat(1):')
+console.log('\nflatArray.flat() / flatArray.flat(1):');
 console.log(flatArray.flat()); // same as flat(1)
 console.log(flatArray.flat(1));
 
-console.log('\nflatArray.flat(2):')
+console.log('\nflatArray.flat(2):');
 console.log(flatArray.flat(2));
 
-console.log('\nflatArray.flat(Infinity):')
+console.log('\nflatArray.flat(Infinity):');
 console.log(flatArray.flat(Infinity)); // fully flat
 console.groupEnd();
 
