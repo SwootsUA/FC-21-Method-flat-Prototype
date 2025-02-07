@@ -33,15 +33,9 @@ function MyArrayPrototype() {
     this.flat = function (depth = 1) {
         const returnArray = new MyArray();
 
-        if (depth < 0 || typeof depth !== 'number' || Number.isNaN(depth)) {
-            this.forEach(item => returnArray.push(item));
-            return returnArray;
-        }
-
         this.forEach(item => {
             if ((MyArray.isMyArray(item) || Array.isArray(item)) && depth > 0) {
-                const flatArray = item.flat(depth - 1);
-                flatArray.forEach(flatItem => returnArray.push(flatItem));
+                item.flat(depth - 1).forEach(flatItem => returnArray.push(flatItem));
             } else {
                 returnArray.push(item);
             }
